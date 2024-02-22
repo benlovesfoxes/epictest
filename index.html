@@ -1,14 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Protected Site</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #login-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        #logout-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <form action="https://neal.fun/infinite-craft/" method="post">
+
+    <form id="password-form">
         <label for="password">Enter Password:</label>
         <input type="password" id="password" name="password" required>
         <input type="submit" value="Submit">
     </form>
-    <embed src='https://interstellar-omega-seven.vercel.app/' style='position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'/>
+
+    <div id="overlay">
+        <div id="login-box">
+            <p>Password correct! You can now access the content.</p>
+            <button id="logout-button" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <embed id="embedded-content" src='https://neal.fun/infinite-craft/' style='display:none; position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;'/>
+
+    <script>
+        document.getElementById("password-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var password = document.getElementById("password").value;
+            
+            // Replace 'your_password_here' with the actual password
+            if (password === "your_password_here") {
+                document.getElementById("password-form").style.display = "none";
+                document.getElementById("overlay").style.display = "flex";
+                document.getElementById("embedded-content").style.display = "block";
+            } else {
+                alert("Incorrect password. Try again.");
+            }
+        });
+
+        function logout() {
+            document.getElementById("password-form").style.display = "block";
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("embedded-content").style.display = "none";
+        }
+    </script>
+
 </body>
 </html>
