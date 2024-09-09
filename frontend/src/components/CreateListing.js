@@ -1,32 +1,30 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/components/CreateListing.js
+import React from 'react';
+import './styles.css';
 
 const CreateListing = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
-    try {
-      await axios.post('http://localhost:5000/api/listings', { title, description, price }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      alert('Listing created');
-    } catch (error) {
-      alert('Error creating listing');
-    }
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    // Handle the files as needed (e.g., preview images, validate file types)
   };
 
   return (
-    <div>
-      <h2>Create Listing</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
-        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price" />
-        <button type="submit">Create</button>
+    <div className="container">
+      <h1>Create Listing</h1>
+      <form id="listing-form">
+        <label htmlFor="name">Item Name:</label>
+        <input type="text" id="name" name="name" required />
+        
+        <label htmlFor="price">Price:</label>
+        <input type="number" id="price" name="price" required />
+        
+        <label htmlFor="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+        
+        <label htmlFor="photos">Photos:</label>
+        <input type="file" id="photos" name="photos" accept="image/*" multiple onChange={handleFileChange} />
+        
+        <button type="submit">Create Listing</button>
       </form>
     </div>
   );

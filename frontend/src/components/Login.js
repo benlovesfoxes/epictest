@@ -1,29 +1,21 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+// src/components/Login.js
+import React from 'react';
+import './styles.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      alert('Login successful');
-    } catch (error) {
-      alert('Login failed');
-    }
-  };
-
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+    <div className="container">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+        
         <button type="submit">Login</button>
       </form>
+      <p>Don't have an account? <a href="/register">Create one</a></p>
     </div>
   );
 };

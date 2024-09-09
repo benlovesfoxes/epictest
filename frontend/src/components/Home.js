@@ -20,13 +20,17 @@ const Home = () => {
   return (
     <div>
       <h1>Marketplace</h1>
-      {listings.map((listing) => (
-        <div key={listing._id}>
-          <h2>{listing.title}</h2>
-          <p>{listing.description}</p>
-          <p>${listing.price}</p>
-        </div>
-      ))}
+      {listings.length > 0 ? (
+        listings.map((listing) => (
+          <div key={listing._id}>
+            <h2>{listing.title}</h2>
+            <p>{listing.description}</p>
+            <p>${listing.price}</p>
+          </div>
+        ))
+      ) : (
+        <p>No listings available.</p>
+      )}
     </div>
   );
 };
